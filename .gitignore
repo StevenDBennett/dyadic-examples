@@ -1,0 +1,8 @@
+build/
+Testing/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.csv
+/[0-9][0-9]_*

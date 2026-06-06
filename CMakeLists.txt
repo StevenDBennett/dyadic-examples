@@ -1,0 +1,58 @@
+cmake_minimum_required(VERSION 3.14)
+project(dyadic-examples LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_library(dyadic INTERFACE)
+target_include_directories(dyadic INTERFACE
+    "${CMAKE_CURRENT_SOURCE_DIR}/../dyadic"
+    "${CMAKE_CURRENT_SOURCE_DIR}")
+target_compile_features(dyadic INTERFACE cxx_std_20)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
+    target_compile_options(dyadic INTERFACE -fconstexpr-ops-limit=200000000)
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    target_compile_options(dyadic INTERFACE -fconstexpr-steps=50000000)
+endif()
+
+function(add_dyadic_example name)
+    add_executable(${name} examples/${name}.cpp)
+    target_link_libraries(${name} PRIVATE dyadic)
+endfunction()
+
+add_dyadic_example(01_basis_conversion)
+add_dyadic_example(02_formal_derivative)
+add_dyadic_example(03_forward_difference)
+add_dyadic_example(04_taylor_shift)
+add_dyadic_example(05_indefinite_sum)
+add_dyadic_example(06_witt_vectors)
+add_dyadic_example(07_adams_teichmuller)
+add_dyadic_example(08_compose_reversion)
+add_dyadic_example(09_carry_chain)
+add_dyadic_example(10_2adic_primitives)
+add_dyadic_example(11_stirling_numbers)
+add_dyadic_example(12_polynomial_arithmetic)
+add_dyadic_example(13_log_exp_series)
+add_dyadic_example(14_newton_iteration)
+add_dyadic_example(15_pade_approximants)
+add_dyadic_example(16_bernoulli_numbers)
+add_dyadic_example(17_eulerian_numbers)
+add_dyadic_example(18_bell_numbers)
+add_dyadic_example(19_hensel_lifting)
+add_dyadic_example(20_witt_division)
+add_dyadic_example(21_resultant_discriminant)
+add_dyadic_example(22_continued_fractions)
+add_dyadic_example(23_benchmark_precision)
+add_dyadic_example(24_compiletime_benchmarks)
+add_dyadic_example(25_csv_output)
+add_dyadic_example(26_witt_log_exp)
+add_dyadic_example(27_dynamic_polynomial)
+add_dyadic_example(28_hardware_arithmetic)
+add_dyadic_example(29_pade_approximant)
+add_dyadic_example(30_matrix)
+
+add_custom_target(run
+    COMMAND "${CMAKE_SOURCE_DIR}/cmake/run_all.sh"
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+)
