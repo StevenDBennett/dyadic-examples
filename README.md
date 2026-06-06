@@ -196,6 +196,27 @@ dyadic-examples/
 └── README.md
 ```
 
+## Design Notes
+
+### DynamicPolynomial Edge Cases
+
+- **`degree()` returns -1 for empty polynomials**: An empty polynomial (default-constructed with no coefficients) has degree `-1`. Its `eval()` returns 0. Multiplying an empty polynomial with any other polynomial returns an empty polynomial.
+- **`operator+=` doesn't resize `this` to `o`'s size**: If `o.size() > this->size()`, `*this` is resized. But `*this` is *never truncated* if `o` is shorter — the extra coefficients remain.
+- **All-zero `DynamicPolynomial` is non-empty**: Constructing with `DynamicPolynomial<W>({0, 0, 0})` gives a degree-0 polynomial (the trailing zeros are not trimmed). Use `coeff.resize(degree() + 1)` to trim.
+- **Carry-chain `operator*`**: Uses `poly_mul` (same as static `Polynomial`), NOT coefficient-wise multiplication. Use `poly_mul_cw` on the internal `coeff` array for coefficient-wise.
+- **`to_static<N>(dyn)` truncates**: If `dyn.degree() >= N`, the top coefficients are silently dropped.
+
+### Continued Fractions
+
+- **All-zero series**: `cf_expand` on an all-zero series yields all-zero CF coefficients (not an error).
+- **Single-term series**: A series with only a constant term produces a single CF coefficient equal to that constant.
+- **`cf_convergent(k)` for k=0**: Returns `P_0 = c_0`, `Q_0 = 1`.
+
+### Matrix
+
+- **Singular inputs**: `inverse()` returns the zero matrix for singular inputs (no exception). `solve()` returns a zero vector for singular systems. This matches the "no exceptions" design of the core library.
+- **Rectangular matrices**: `rank()`, `transpose()`, and operator `==`/`!=` work on arbitrary M×N dimensions. Determinant and inverse are only defined for square matrices.
+
 ## Related
 
 - [dyadic](https://github.com/StevenDBennett/dyadic) — the core library
