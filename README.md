@@ -10,7 +10,7 @@ cmake -B build && cmake --build build && cmake --build build --target run
 
 ## What This Is
 
-[dyadic](https://github.com/StevenDBennett/dyadic) is a single-header C++20 library for arithmetic and calculus over the 2-adic integers ℤ₂ and the ring of formal power series ℤ₂[[t]]. This companion project provides **31 runnable examples** covering the full dyadic API, plus **extension headers** that add functionality best kept separate from the core library.
+[dyadic](https://github.com/StevenDBennett/dyadic) is a single-header C++20 library for arithmetic and calculus over the 2-adic integers ℤ₂ and the ring of formal power series ℤ₂[[t]]. This companion project provides **32 runnable examples** covering the full dyadic API, plus **extension headers** that add functionality best kept separate from the core library.
 
 ## Extensions
 
@@ -102,7 +102,7 @@ All operations (`+`, `−`, `*`, determinant, rank, inverse, solve, transpose, t
 
 ---
 
-## The 31 Examples
+## The 32 Examples
 
 Each example is a self-contained `.cpp` file in `examples/`. Build and run them all with `cmake --build build --target run`.
 
@@ -139,6 +139,7 @@ Each example is a self-contained `.cpp` file in `examples/`. Build and run them 
 | 29 | `pade_approximant` | Padé [1/1], [2/2], rational recovery, constexpr usage |
 | 30 | `matrix` | Matrix operations, determinant, inverse, rank, solve |
 | 31 | `discrete_hedging` | Δ/Σ operators in finance: daily returns, discrete gamma, cumulative P&L, continuous vs discrete hedge ratios |
+| 32 | `extension_verify` | Conformance tests for all four extension headers (32 checks) |
 
 ## Build
 
@@ -153,14 +154,14 @@ Each example is a self-contained `.cpp` file in `examples/`. Build and run them 
 cmake -B build
 cmake --build build
 
-# Run all 31 examples
+# Run all 32 examples (returns 0 on pass, non-zero if any example fails)
 cmake --build build --target run
 
 # Run a single example
 ./build/01_basis_conversion
 ```
 
-The `run` target runs every example in sequence and prints PASS/FAIL results.
+The `run` target runs every example in sequence and prints PASS/FAIL results. Example `32_extension_verify` returns exit code 0 when all conformance checks pass, 1 otherwise.
 
 ### Project integration
 
@@ -177,15 +178,16 @@ This gives you the `-I` paths for both `<dyadic.h>` and the extension headers in
 
 ```
 dyadic-examples/
-├── CMakeLists.txt           # Build system for all 31 examples
+├── CMakeLists.txt           # Build system for all 32 examples
 ├── cmake/
 │   └── run_all.sh           # Script invoked by `--target run`
 ├── examples/
 │   ├── 01_basis_conversion.cpp
 │   ├── 02_formal_derivative.cpp
-│   ├── ...                  # (31 .cpp files total)
+│   ├── ...                  # (32 .cpp files total)
 │   ├── 30_matrix.cpp
-│   └── 31_discrete_hedging.cpp
+│   ├── 31_discrete_hedging.cpp
+│   └── 32_extension_verify.cpp
 ├── dynamic_polynomial.h     # Extension: runtime-degree polynomials
 ├── pade.h                   # Extension: Padé approximants
 ├── continued_fractions.h    # Extension: continued fractions in ℤ₂[[t]]

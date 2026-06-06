@@ -1,4 +1,4 @@
-#include "dyadic.h"
+#include <dyadic.h>
 #include <cstdint>
 #include <cstdio>
 

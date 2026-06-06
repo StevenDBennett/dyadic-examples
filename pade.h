@@ -29,7 +29,8 @@ pade_approximant(const Polynomial<M+N+1, W, MonomialBasis>& series) noexcept {
         return {p, std::array<W, 1>{W(1)}};
     }
 
-    W mat[N][N+1];
+    // Augmented matrix [A | b] where A is N×N, b is N×1
+    std::array<std::array<W, N + 1>, N> mat{};
     for (int i = 0; i < N; ++i) {
         mat[i][N] = W(0) - series[M + 1 + i];
         for (int j = 0; j < N; ++j) {

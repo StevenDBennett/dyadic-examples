@@ -47,6 +47,21 @@ struct Matrix {
         return r;
     }
 
+    constexpr bool operator==(const Matrix& o) const noexcept {
+        for (int i = 0; i < M; ++i)
+            for (int j = 0; j < N; ++j)
+                if (data[i][j] != o[i][j]) return false;
+        return true;
+    }
+
+    constexpr bool operator!=(const Matrix& o) const noexcept {
+        return !(*this == o);
+    }
+
+    constexpr bool is_singular() const noexcept requires (M == N) {
+        return determinant() % 2 == 0;
+    }
+
     template<int P>
     constexpr Matrix<M, P, W> operator*(const Matrix<N, P, W>& o) const noexcept {
         Matrix<M, P, W> r;

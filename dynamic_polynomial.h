@@ -77,7 +77,7 @@ struct DynamicPolynomial {
         return *this;
     }
 
-    W eval(W x) const {
+    constexpr W eval(W x) const {
         if (coeff.empty()) return 0;
         if constexpr (std::is_same_v<Basis, MonomialBasis>) {
             W r = 0;

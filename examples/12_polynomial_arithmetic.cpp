@@ -1,4 +1,4 @@
-#include "dyadic.h"
+#include <dyadic.h>
 #include <cstdio>
 
 template<int N, std::unsigned_integral W, typename B>
