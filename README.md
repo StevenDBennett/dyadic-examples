@@ -1,6 +1,6 @@
 # dyadic-examples
 
-Examples and extension headers for [**dyadic**](https://github.com/StevenDBennett/dyadic) — the Six-Axiom 2-Adic Operator Calculus library.
+32 runnable examples for [**dyadic**](https://github.com/StevenDBennett/dyadic) — the Six-Axiom 2-Adic Operator Calculus library.
 
 ```bash
 cmake -B build && cmake --build build && cmake --build build --target run
@@ -10,11 +10,11 @@ cmake -B build && cmake --build build && cmake --build build --target run
 
 ## What This Is
 
-[dyadic](https://github.com/StevenDBennett/dyadic) is a header-only C++20 library for arithmetic and calculus over the 2-adic integers ℤ₂ and the ring of formal power series ℤ₂[[t]]. This companion project provides **32 runnable examples** covering the full dyadic API, plus **extension headers** that add functionality best kept separate from the core library.
+[dyadic](https://github.com/StevenDBennett/dyadic) is a header-only C++20 library for arithmetic and calculus over the 2-adic integers ℤ₂ and the ring of formal power series ℤ₂[[t]]. This companion project provides **32 runnable examples** covering the full dyadic API, including its four extension headers (`<dyadic/dynamic_polynomial.h>`, `<dyadic/pade.h>`, `<dyadic/continued_fractions.h>`, `<dyadic/matrix.h>`) which live in the dyadic repository under `include/dyadic/`.
 
 ## Extensions
 
-Four standalone headers, drop-in ready — just `#include <dyadic/dynamic_polynomial.h>` (or whichever) in your project:
+Four extension headers shipped with the dyadic library, drop-in ready — just `#include <dyadic/dynamic_polynomial.h>` (or whichever) in your project:
 
 | Header | What It Adds | Depends On |
 |--------|-------------|------------|
