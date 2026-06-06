@@ -14,14 +14,14 @@ cmake -B build && cmake --build build && cmake --build build --target run
 
 ## Extensions
 
-Four standalone headers, drop-in ready — just `#include <dynamic_polynomial.h>` (or whichever) in your project:
+Four standalone headers, drop-in ready — just `#include <dyadic/dynamic_polynomial.h>` (or whichever) in your project:
 
 | Header | What It Adds | Depends On |
 |--------|-------------|------------|
-| [`dynamic_polynomial.h`](#dynamic_polynomial) | Heap-allocated polynomial with runtime-variable degree | dyadic.h |
-| [`pade.h`](#pade) | Padé approximant construction in ℤ₂[[t]] | dyadic.h |
-| [`continued_fractions.h`](#continued_fractions) | Continued fraction expansion and convergent evaluation in ℤ₂[[t]] | dyadic.h, dynamic_polynomial.h |
-| [`matrix.h`](#matrix) | Generic M×N matrix over ℤ/2^Wℤ with linear algebra | dyadic.h |
+| [`<dyadic/dynamic_polynomial.h>`](#dynamic_polynomial) | Heap-allocated polynomial with runtime-variable degree | dyadic.h |
+| [`<dyadic/pade.h>`](#pade) | Padé approximant construction in ℤ₂[[t]] | dyadic.h |
+| [`<dyadic/continued_fractions.h>`](#continued_fractions) | Continued fraction expansion and convergent evaluation in ℤ₂[[t]] | dyadic.h, dynamic_polynomial.h |
+| [`<dyadic/matrix.h>`](#matrix) | Generic M×N matrix over ℤ/2^Wℤ with linear algebra | dyadic.h |
 
 ---
 
@@ -172,7 +172,7 @@ add_subdirectory(path/to/dyadic-examples)
 target_link_libraries(my_app PRIVATE dyadic)
 ```
 
-This gives you the `-I` paths for both `<dyadic.h>` and the extension headers in a single step.
+This gives you the `-I` paths for both `<dyadic.h>` and `<dyadic/...>` extension headers in a single step.
 
 ## Project Structure
 
@@ -188,10 +188,6 @@ dyadic-examples/
 │   ├── 30_matrix.cpp
 │   ├── 31_discrete_hedging.cpp
 │   └── 32_extension_verify.cpp
-├── dynamic_polynomial.h     # Extension: runtime-degree polynomials
-├── pade.h                   # Extension: Padé approximants
-├── continued_fractions.h    # Extension: continued fractions in ℤ₂[[t]]
-├── matrix.h                 # Extension: matrix / linear algebra
 ├── LICENSE                  # MIT
 └── README.md
 ```

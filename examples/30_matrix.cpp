@@ -1,5 +1,5 @@
 #include <dyadic.h>
-#include <matrix.h>
+#include <dyadic/matrix.h>
 #include <iostream>
 #include <iomanip>
 #include <array>

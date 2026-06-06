@@ -1,5 +1,5 @@
 #include <dyadic.h>
-#include <pade.h>
+#include <dyadic/pade.h>
 #include <cstdint>
 #include <cstdio>
 

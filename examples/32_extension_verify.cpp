@@ -2,10 +2,10 @@
 // Returns 0 on pass, 1 on failure. Run via: cmake --build build --target run
 
 #include <dyadic.h>
-#include <dynamic_polynomial.h>
-#include <pade.h>
-#include <continued_fractions.h>
-#include <matrix.h>
+#include <dyadic/dynamic_polynomial.h>
+#include <dyadic/pade.h>
+#include <dyadic/continued_fractions.h>
+#include <dyadic/matrix.h>
 #include <cstdio>
 
 using namespace dyadic;
