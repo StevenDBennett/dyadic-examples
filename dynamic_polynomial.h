@@ -54,9 +54,9 @@ struct DynamicPolynomial {
     DynamicPolynomial(const Polynomial<N, W, Basis>& p) : coeff(p.begin(), p.end()) {}
 
     W& operator[](int i) { return coeff[i]; }
-    W operator[](int i) const { return coeff[i]; }
-    int size() const { return static_cast<int>(coeff.size()); }
-    int degree() const {
+    constexpr W operator[](int i) const { return coeff[i]; }
+    constexpr int size() const { return static_cast<int>(coeff.size()); }
+    constexpr int degree() const {
         if (coeff.empty()) return -1;
         int d = static_cast<int>(coeff.size()) - 1;
         while (d > 0 && coeff[d] == 0) --d;

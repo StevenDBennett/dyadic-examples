@@ -99,7 +99,6 @@ static void test_dynamic_basis_roundtrip() {
     ok = true;
     for (int i = 0; i < small.size(); ++i) ok = ok && (small[i] == tback[i]);
     CHECK(ok, "Monomial → Taylor → Monomial roundtrip (small coefficients)");
-
 }
 
 // ---------------------------------------------------------------------------
