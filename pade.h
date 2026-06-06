@@ -9,6 +9,7 @@
 
 #include <dyadic.h>
 
+#include <array>
 #include <utility>
 
 namespace dyadic {

@@ -13,6 +13,9 @@
 
 #include <dynamic_polynomial.h>
 
+#include <utility>
+#include <vector>
+
 namespace dyadic {
 
 template<std::unsigned_integral W>
@@ -26,7 +29,7 @@ std::vector<W> cf_expand(const DynamicPolynomial<W, MonomialBasis>& series, int 
         DynamicPolynomial<W, MonomialBasis> next(s.size() - 2);
         for (int i = 0; i < next.size(); ++i)
             next[i] = s[i + 1];
-        s = next;
+        s = std::move(next);
     }
     return result;
 }

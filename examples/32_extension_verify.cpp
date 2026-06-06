@@ -7,7 +7,6 @@
 #include <continued_fractions.h>
 #include <matrix.h>
 #include <cstdio>
-#include <cstdlib>
 
 using namespace dyadic;
 

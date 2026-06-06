@@ -184,7 +184,7 @@ falling_to_monomial(const DynamicPolynomial<W, FallingFactorialBasis>& p) {
     for (int k = 0; k < sz; ++k) {
         W sum = 0;
         for (int n = k; n < sz; ++n)
-            sum += W(1) * p[n] * cache.s1[n][k];
+            sum += p[n] * cache.s1[n][k];
         r[k] = sum;
     }
     return r;

@@ -9,6 +9,7 @@
 
 #include <dyadic.h>
 
+#include <array>
 #include <tuple>
 
 namespace dyadic {
@@ -127,9 +128,9 @@ struct Matrix {
         W prev = 1;
         int parity = 0;
         for (int k = 0; k < M - 1; ++k) {
-            if (A[k][k] == 0) {
+            if (A[k][k] % 2 == 0) {
                 int p = k + 1;
-                while (p < M && A[p][k] == 0) ++p;
+                while (p < M && A[p][k] % 2 == 0) ++p;
                 if (p == M) return 0;
                 std::swap(A[p], A[k]);
                 parity ^= 1;
