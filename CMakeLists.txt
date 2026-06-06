@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(dyadic INTERFACE)
 target_include_directories(dyadic INTERFACE
     "${CMAKE_CURRENT_SOURCE_DIR}/../dyadic"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../dyadic/include"
     "${CMAKE_CURRENT_SOURCE_DIR}")
 target_compile_features(dyadic INTERFACE cxx_std_20)
 
@@ -53,6 +54,13 @@ add_dyadic_example(29_pade_approximant)
 add_dyadic_example(30_matrix)
 add_dyadic_example(31_discrete_hedging)
 add_dyadic_example(32_extension_verify)
+
+option(DYADIC_EXAMPLES_BUILD_TESTS "Build CTest integration" ON)
+
+if(DYADIC_EXAMPLES_BUILD_TESTS)
+    enable_testing()
+    add_test(NAME extension_verify COMMAND 32_extension_verify)
+endif()
 
 add_custom_target(run
     COMMAND "${CMAKE_SOURCE_DIR}/cmake/run_all.sh"

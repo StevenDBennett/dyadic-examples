@@ -36,9 +36,9 @@ int main() {
     for (uint64_t t_val : {uint64_t(0), uint64_t(1), uint64_t(2), uint64_t(5), uint64_t(10)}) {
         uint64_t v_mono = p.eval(t_val);
         auto ff = change_basis<FallingFactorialBasis>(p);
-        uint64_t v_ff = ff.eval(t_val);
+        uint64_t v_ff = eval(ff, t_val);
         auto taylor = change_basis<TaylorBasis>(p);
-        uint64_t v_tay = taylor.eval(t_val);
+        uint64_t v_tay = eval(taylor, t_val);
         std::printf("  P(%2lu) = %5lu  (mono=%lu, ff=%lu, taylor=%lu)%s\n",
             t_val, v_mono, v_mono, v_ff, v_tay,
             (v_mono == v_ff && v_ff == v_tay) ? "" : " MISMATCH");

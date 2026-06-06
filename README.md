@@ -10,7 +10,7 @@ cmake -B build && cmake --build build && cmake --build build --target run
 
 ## What This Is
 
-[dyadic](https://github.com/StevenDBennett/dyadic) is a single-header C++20 library for arithmetic and calculus over the 2-adic integers ℤ₂ and the ring of formal power series ℤ₂[[t]]. This companion project provides **32 runnable examples** covering the full dyadic API, plus **extension headers** that add functionality best kept separate from the core library.
+[dyadic](https://github.com/StevenDBennett/dyadic) is a header-only C++20 library for arithmetic and calculus over the 2-adic integers ℤ₂ and the ring of formal power series ℤ₂[[t]]. This companion project provides **32 runnable examples** covering the full dyadic API, plus **extension headers** that add functionality best kept separate from the core library.
 
 ## Extensions
 
@@ -139,14 +139,14 @@ Each example is a self-contained `.cpp` file in `examples/`. Build and run them 
 | 29 | `pade_approximant` | Padé [1/1], [2/2], rational recovery, constexpr usage |
 | 30 | `matrix` | Matrix operations, determinant, inverse, rank, solve |
 | 31 | `discrete_hedging` | Δ/Σ operators in finance: daily returns, discrete gamma, cumulative P&L, continuous vs discrete hedge ratios |
-| 32 | `extension_verify` | Conformance tests for all four extension headers (34 checks) |
+| 32 | `extension_verify` | Conformance tests for all four extension headers (45 checks) |
 
 ## Build
 
 ### Dependencies
 
 - **C++20** compiler (GCC 12+, Clang 17+)
-- [dyadic](https://github.com/StevenDBennett/dyadic) — expected at `../dyadic/dyadic.h` relative to this repo
+- [dyadic](https://github.com/StevenDBennett/dyadic) — expected at `../dyadic` relative to this repo (include path to `../dyadic` and `../dyadic/include`)
 
 ### Quick start
 
@@ -220,7 +220,7 @@ dyadic-examples/
 ## Related
 
 - [dyadic](https://github.com/StevenDBennett/dyadic) — the core library
-- [dyadic_verify.h](https://github.com/StevenDBennett/dyadic/blob/main/dyadic_verify.h) — compile-time proofs
+- [dyadic/verify.h](https://github.com/StevenDBennett/dyadic/blob/main/include/dyadic/verify.h) — compile-time proofs
 
 ## License
 

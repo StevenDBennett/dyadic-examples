@@ -10,20 +10,23 @@
 
 using namespace dyadic;
 
+#define CHECK(cond, msg) do { \
+    if (!(cond)) { std::printf("  FAIL  %s\n", msg); ++failures; } \
+    else { std::printf("  PASS  %s\n", msg); } \
+} while(0)
+
+namespace {
+
 using M22 = Matrix<2, 2, uint32_t>;
 using M32 = Matrix<3, 2, uint32_t>;
 using M23 = Matrix<2, 3, uint32_t>;
 
-static int failures = 0;
-#define CHECK(cond, msg) do { \
-    if (!(cond)) { std::printf("  FAIL  %s\n", msg); failures++; } \
-    else { std::printf("  PASS  %s\n", msg); } \
-} while(0)
+int failures = 0;
 
 // ---------------------------------------------------------------------------
 // 1. DynamicPolynomial ring semantics
 // ---------------------------------------------------------------------------
-static void test_dynamic_ring_semantics() {
+void test_dynamic_ring_semantics() {
     std::printf("\n--- DynamicPolynomial ring semantics ---\n");
 
     DynamicPolynomial<uint8_t, MonomialBasis> a{{200, 1}};
@@ -41,7 +44,7 @@ static void test_dynamic_ring_semantics() {
     CHECK(ok, "ring consistency: to_static(to_dynamic(P) × to_dynamic(Q)) == P × Q");
 }
 
-static void test_dynamic_empty_and_truncation() {
+void test_dynamic_empty_and_truncation() {
     std::printf("\n--- DynamicPolynomial edge cases ---\n");
 
     DynamicPolynomial<uint32_t> empty;
@@ -83,7 +86,7 @@ static void test_dynamic_empty_and_truncation() {
 // ---------------------------------------------------------------------------
 // 2. DynamicPolynomial basis roundtrip
 // ---------------------------------------------------------------------------
-static void test_dynamic_basis_roundtrip() {
+void test_dynamic_basis_roundtrip() {
     std::printf("\n--- DynamicPolynomial basis roundtrip ---\n");
 
     DynamicPolynomial<uint32_t, MonomialBasis> mono({1, 2, 3, 4});
@@ -104,7 +107,7 @@ static void test_dynamic_basis_roundtrip() {
 // ---------------------------------------------------------------------------
 // 3. DynamicPolynomial calculus
 // ---------------------------------------------------------------------------
-static void test_dynamic_calculus() {
+void test_dynamic_calculus() {
     std::printf("\n--- DynamicPolynomial calculus ---\n");
 
     DynamicPolynomial<uint32_t, MonomialBasis> p({1, 2, 3});
@@ -124,7 +127,7 @@ static void test_dynamic_calculus() {
 // ---------------------------------------------------------------------------
 // 4. Padé approximant
 // ---------------------------------------------------------------------------
-static void test_pade() {
+void test_pade() {
     std::printf("\n--- Padé approximants ---\n");
 
     Polynomial<3, uint32_t, MonomialBasis> geom{{1, 1, 1}};
@@ -161,7 +164,7 @@ static void test_pade() {
 // ---------------------------------------------------------------------------
 // 5. Continued fractions
 // ---------------------------------------------------------------------------
-static void test_continued_fractions() {
+void test_continued_fractions() {
     std::printf("\n--- Continued fractions ---\n");
 
     DynamicPolynomial<uint32_t, MonomialBasis> geom({1, 1, 1, 1, 1, 1});
@@ -205,7 +208,7 @@ static void test_continued_fractions() {
 // ---------------------------------------------------------------------------
 // 6. Matrix operations
 // ---------------------------------------------------------------------------
-static void test_matrix() {
+void test_matrix() {
     std::printf("\n--- Matrix ---\n");
 
     M22 A{{ {{3, 1}, {2, 5}} }};
@@ -256,6 +259,8 @@ static void test_matrix() {
     CHECK(A != B, "Matrix operator!= on different matrices");
     CHECK(A + B == B + A, "Matrix addition commutativity via operator==");
 }
+
+} // anonymous namespace
 
 int main() {
     std::printf("=== 32 — Extension Conformance Tests ===\n");
