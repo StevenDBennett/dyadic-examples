@@ -30,7 +30,7 @@ int main() {
 
     auto prod = p * q;
     print_poly_basis("P × Q", prod);
-    std::printf("  Degree: %d (expected: 3 + 3 = 6)\n\n", prod.degree);
+    std::printf("  Max degree: %d (expected: 3 + 3 = 6)\n\n", prod.max_degree);
 
     std::printf("Evaluation in all three bases:\n");
     for (uint64_t t_val : {uint64_t(0), uint64_t(1), uint64_t(2), uint64_t(5), uint64_t(10)}) {

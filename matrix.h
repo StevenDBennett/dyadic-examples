@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "../dyadic/dyadic.h"
+#include <dyadic.h>
 
 #include <tuple>
 
