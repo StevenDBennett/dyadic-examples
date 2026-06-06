@@ -127,12 +127,17 @@ struct DynamicPolynomial {
         return a;
     }
 
+    // NOTE: operator* uses carry-chain multiplication (same ring as
+    // Polynomial<N,W,Basis>::operator*). This is correct 2-adic arithmetic
+    // with overflow propagation through the carry chain C = (I-N)⁻¹.
+    // For coefficient-wise (standard ring) multiplication, use poly_mul_cw
+    // on the underlying arrays.
     DynamicPolynomial operator*(const DynamicPolynomial& o) const {
         if (coeff.empty() || o.coeff.empty()) return DynamicPolynomial{};
-        DynamicPolynomial r(static_cast<int>(coeff.size() + o.coeff.size() - 2));
-        for (int i = 0; i < static_cast<int>(coeff.size()); ++i)
-            for (int j = 0; j < static_cast<int>(o.coeff.size()); ++j)
-                r[i + j] += coeff[i] * o.coeff[j];
+        int na = static_cast<int>(coeff.size());
+        int nb = static_cast<int>(o.coeff.size());
+        DynamicPolynomial r(na + nb - 2);
+        poly_mul(r.coeff.data(), coeff.data(), na, o.coeff.data(), nb);
         return r;
     }
 };
@@ -282,7 +287,8 @@ forward_difference(const DynamicPolynomial<W, MonomialBasis>& p) {
     for (int n = 1; n < sz; ++n) {
         for (int k = n; k >= 1; --k)
             C[k] = C[k-1] + C[k];
-        int lim = n < sz - 1 ? n : sz - 2;
+        int lim = n - 1;
+        if (lim > sz - 2) lim = sz - 2;
         for (int i = 0; i <= lim; ++i)
             r[i] += p[n] * C[i];
     }

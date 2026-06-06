@@ -137,6 +137,45 @@ int main() {
     bool eval_match = ff.eval(7) == ff_mono.eval(7);
     os << "  eval(7) match: " << (eval_match ? "PASS" : "FAIL") << "\n\n";
 
+    // 9. Ring semantics verification: carry-chain vs coefficient-wise
+    os << "--- 9. Ring semantics verification ---\n\n";
+
+    os << "  DynamicPolynomial::operator* now uses carry-chain poly_mul,\n";
+    os << "  matching Polynomial<N,W,Basis>::operator*. This ensures\n";
+    os << "  consistent 2-adic arithmetic across static and dynamic types.\n\n";
+
+    // Use uint8_t to make carry-chain effects visible (overflow at 256)
+    using W8 = uint8_t;
+    // p = 200 + x  (coefficients deliberately chosen to overflow uint8_t)
+    DynamicPolynomial<W8, MonomialBasis> da({200, 1});
+    DynamicPolynomial<W8, MonomialBasis> db({2, 0});
+    auto dprod = da * db;
+    os << "  uint8_t test:  (200 + x) × (2)\n";
+    os << "    Coefficient-wise would be:  {144, 2}\n";
+    os << "    Carry-chain (poly_mul):     {" << int(dprod[0]) << ", " << int(dprod[1]) << "}\n";
+
+    // Compare with static Polynomial using same multiplication
+    Polynomial<2, W8, MonomialBasis> sa{{200, 1}};
+    Polynomial<2, W8, MonomialBasis> sb{{2, 0}};
+    auto sprod = sa * sb;
+    bool ring_match = (dprod[0] == sprod[0] && dprod[1] == sprod[1]);
+    os << "    Static poly_mul:             {" << int(sprod[0]) << ", " << int(sprod[1]) << "}\n";
+    os << "    Ring match (static==dynamic): " << (ring_match ? "PASS" : "FAIL") << "\n\n";
+
+    // Verify roundtrip via to_static/to_dynamic preserves carry-chain ring
+    os << "  Roundtrip verification:\n";
+    Polynomial<3, uint32_t> sp{{1, 2, 3}};
+    Polynomial<3, uint32_t> sq{{4, 5, 6}};
+    auto s_static = sp * sq;
+    auto d_from_sp = to_dynamic(sp);
+    auto d_from_sq = to_dynamic(sq);
+    auto d_dynamic = d_from_sp * d_from_sq;
+    auto back_to_static = to_static<5>(d_dynamic);
+    bool rt_ok = true;
+    for (int i = 0; i < 5; ++i) rt_ok = rt_ok && (s_static[i] == back_to_static[i]);
+    os << "    to_static(to_dynamic(P) × to_dynamic(Q)) == P × Q: "
+       << (rt_ok ? "PASS" : "FAIL") << "\n\n";
+
     os << "=== Summary ===\n";
     os << "  Construction with runtime degree:  Working\n";
     os << "  eval (monomial/falling/taylor):    Working\n";
@@ -145,6 +184,7 @@ int main() {
     os << "  Static ↔ Dynamic conversion:       Working\n";
     os << "  Formal derivative:                 Working\n";
     os << "  Forward difference:                Working\n";
+    os << "  Ring semantics (carry-chain):      Working\n";
 
-    return 0;
+    return (ring_match && rt_ok) ? 0 : 1;
 }

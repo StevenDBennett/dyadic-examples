@@ -52,6 +52,7 @@ add_dyadic_example(28_hardware_arithmetic)
 add_dyadic_example(29_pade_approximant)
 add_dyadic_example(30_matrix)
 add_dyadic_example(31_discrete_hedging)
+add_dyadic_example(32_extension_verify)
 
 add_custom_target(run
     COMMAND "${CMAKE_SOURCE_DIR}/cmake/run_all.sh"
