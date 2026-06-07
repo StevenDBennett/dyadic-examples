@@ -1,8 +1,6 @@
 #include <dyadic.h>
-#include <dyadic/matrix.h>
 #include <iostream>
 #include <iomanip>
-#include <array>
 
 template<int M, int N, std::unsigned_integral W>
 void print_matrix(const dyadic::Matrix<M, N, W>& A, const char* label) {

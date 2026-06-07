@@ -1,5 +1,4 @@
 #include <dyadic.h>
-#include <dyadic/dynamic_polynomial.h>
 #include <iostream>
 #include <iomanip>
 #include <string>

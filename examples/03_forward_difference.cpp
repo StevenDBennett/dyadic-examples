@@ -39,7 +39,7 @@ int main() {
     std::printf("Identity: Δ = e^D − I  (truncated series)\n");
     std::printf("  ΔP = DP + D²P/2! + D³P/3! + ...\n\n");
     std::printf("  deg(DP)=%d, deg(D²P)=%d, deg(D³P)=%d, deg(D⁴P)=%d\n",
-        d1.max_degree, d2.max_degree, d3.max_degree, d4.max_degree);
+        d1.actual_degree(), d2.actual_degree(), d3.actual_degree(), d4.actual_degree());
     std::printf("  DP           = {%lu, %lu, %lu, %lu}\n", d1[0], d1[1], d1[2], d1[3]);
     std::printf("  D²P/2!       = {%lu, %lu, %lu}\n", d2[0]/2, d2[1]/2, d2[2]/2);
     std::printf("  D³P/3!       = {%lu, %lu}\n", d3[0]/6, d3[1]/6);

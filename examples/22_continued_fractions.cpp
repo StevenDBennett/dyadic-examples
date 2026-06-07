@@ -1,5 +1,4 @@
 #include <dyadic.h>
-#include <dyadic/continued_fractions.h>
 #include <iostream>
 #include <iomanip>
 #include <vector>

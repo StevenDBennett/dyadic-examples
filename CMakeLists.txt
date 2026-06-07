@@ -7,8 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(dyadic INTERFACE)
 target_include_directories(dyadic INTERFACE
     "${CMAKE_CURRENT_SOURCE_DIR}/../dyadic"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../dyadic/include"
-    "${CMAKE_CURRENT_SOURCE_DIR}")
+    "${CMAKE_CURRENT_SOURCE_DIR}/../dyadic/include")
 target_compile_features(dyadic INTERFACE cxx_std_20)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU")

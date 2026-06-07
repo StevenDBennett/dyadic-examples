@@ -139,7 +139,7 @@ Each example is a self-contained `.cpp` file in `examples/`. Build and run them 
 | 29 | `pade_approximant` | Padé [1/1], [2/2], rational recovery, constexpr usage |
 | 30 | `matrix` | Matrix operations, determinant, inverse, rank, solve |
 | 31 | `discrete_hedging` | Δ/Σ operators in finance: daily returns, discrete gamma, cumulative P&L, continuous vs discrete hedge ratios |
-| 32 | `extension_verify` | Conformance tests for all four extension headers (45 checks) |
+| 32 | `extension_verify` | Conformance tests for all four extension headers (49 checks) |
 
 ## Build
 

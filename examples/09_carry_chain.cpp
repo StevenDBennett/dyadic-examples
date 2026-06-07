@@ -1,6 +1,5 @@
 #include <dyadic.h>
 #include <cstdio>
-#include <array>
 
 int main() {
     using namespace dyadic;

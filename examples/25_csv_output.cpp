@@ -3,7 +3,6 @@
 #include <cstdio>
 #include <fstream>
 #include <string>
-#include <cmath>
 
 using namespace dyadic;
 

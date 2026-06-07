@@ -2,10 +2,6 @@
 // Returns 0 on pass, 1 on failure. Run via: cmake --build build --target run
 
 #include <dyadic.h>
-#include <dyadic/dynamic_polynomial.h>
-#include <dyadic/pade.h>
-#include <dyadic/continued_fractions.h>
-#include <dyadic/matrix.h>
 #include <cstdio>
 
 using namespace dyadic;
@@ -122,6 +118,15 @@ void test_dynamic_calculus() {
     bool ok = true;
     for (int i = 0; i < d_delta.size(); ++i) ok = ok && (d_delta[i] == delta_d[i]);
     CHECK(ok, "D ∘ Δ = Δ ∘ D");
+
+    DynamicPolynomial<uint32_t, TaylorBasis> tp({1, 2, 3});
+    auto tdelta = forward_difference(tp);
+    CHECK(tdelta.size() == 2 && tdelta[0] == 2 && tdelta[1] == 3, "forward_difference Δ (Taylor basis)");
+
+    // Verify Δ(T_k) = T_{k-1}: Δ(P)(x) = P(x+1) - P(x) in Taylor basis
+    CHECK(tdelta.eval(0) == tp.eval(1) - tp.eval(0), "Δ(P)(0) = P(1)-P(0)");
+    CHECK(tdelta.eval(2) == tp.eval(3) - tp.eval(2), "Δ(P)(2) = P(3)-P(2)");
+    CHECK(tdelta.eval(5) == tp.eval(6) - tp.eval(5), "Δ(P)(5) = P(6)-P(5)");
 }
 
 // ---------------------------------------------------------------------------

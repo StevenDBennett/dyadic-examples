@@ -79,8 +79,8 @@ int main() {
     std::printf("  64 bits   | ~20                  | ~64\n\n");
 
     std::printf("Note: Exact limits depend on coefficient magnitudes.\n");
-    std::printf("      Use dyadic::check_taylor_roundtrip_precision() and\n");
-    std::printf("      dyadic::check_witt_recovery_precision() to verify.\n\n");
+    std::printf("      Use dyadic::verify::check_taylor_roundtrip_precision() and\n");
+    std::printf("      dyadic::verify::check_witt_recovery_precision() to verify.\n\n");
 
     return 0;
 }

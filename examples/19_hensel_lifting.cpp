@@ -7,25 +7,7 @@ using namespace dyadic;
 // then there exists a unique root a* in ℤ_p with a* ≡ a (mod p).
 // Lift: a_{n+1} = a_n - f(a_n) * inv(f'(a_n))  (mod p^{2n})
 
-template<std::unsigned_integral W>
-constexpr W hensel_lift_sqrt(W a, int iterations = 10) {
-    // f(x) = x^2 - a, f'(x) = 2x
-    // Start with a mod 2 guess: if a is odd, try x=1
-    W x = 1;
-    for (int i = 0; i < iterations; ++i) {
-        W x2 = x * x;
-        W diff = x2 - a;  // f(x) = x^2 - a
-        W f_prime = (2 % 2 == 0) ? x & 1 : (2 * x); // f'(x) = 2x, but 2 is not invertible in ℤ₂
-        // For odd x, 2x ≡ 0 (mod 2), so we need a different approach
-        // In practice for p=2, we lift from mod 2 to mod 4 carefully
-        if (diff == 0) break;
-        // Simple iteration that doubles precision each step
-        x = x - diff / (2 * x);  // This is approximate
-    }
-    return x;
-}
-
-// More careful Hensel lift for p=2:
+// Careful Hensel lift for p=2:
 // Given a solution to f(x) ≡ 0 (mod 2^k), lift to (mod 2^{2k})
 template<std::unsigned_integral W, typename Func, typename Deriv>
 constexpr W hensel_lift(W a_k, Func f, Deriv f_prime, int bit_precision) {
